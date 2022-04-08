@@ -8,10 +8,15 @@ from datetime import datetime
 from playsound import playsound
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-os.system("title NVDown")
+os.system("title NVDown, by Seedy-Threepio")
 def NVDown():
     version = raw_input("Enter the version of NVDA you'd like to download\n")
     try:
+        if sys.getwindowsversion().major == 5 and sys.getwindowsversion().minor == 1:
+            if float(version) > 2017.3:
+                winsound.MessageBeep(48)
+                print("Error! NVDA version too high. You can't go higher than 2017.3 on Windows XP.")
+                NVDown()
         if float(version) < 2013.3:
             winsound.MessageBeep(48)
             print("Error! NVDA version too low. Must be 2013.3 or higher.")
@@ -43,8 +48,8 @@ def NVDown():
         NVDown()
     if sys.getwindowsversion().major >= 6:
         downpath = os.path.join(os.environ['userprofile'],"downloads",os.environ['ver'])
-    elif sys.getwindowsversion().major == 5:
-        downpath = os.path.join(os.environ['userprofile'],"my documents","downloads",os.environ['ver'])
+    elif sys.getwindowsversion().major == 5 and sys.getwindowsversion().minor == 1:
+        downpath = os.path.join(os.environ['userprofile'],"My Documents",os.environ['ver'])
     playsound("snd/started.mp3",block = False)
     print("Downloading NVDA " + nvver + "...")
     downfile = open(downpath,"wb")
@@ -63,4 +68,9 @@ def NVDown():
         elif menu == "2":
             waiting = False
             sys.exit()
-NVDown()
+if sys.getwindowsversion().major == 5 and sys.getwindowsversion.minor == 0:
+    winsound.MessageBeep(16)
+    print("Error! Windows 2000 is not supported by this program because no NVDown-compatible versions of NVDA can run on Windows 2000!")
+    sys.exit()
+else:
+    NVDown()
