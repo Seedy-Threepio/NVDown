@@ -68,7 +68,7 @@ def NVDown():
         elif menu == "2":
             waiting = False
             sys.exit()
-if sys.getwindowsversion().major == 5 and sys.getwindowsversion.minor == 0:
+if sys.getwindowsversion().major == 5 and sys.getwindowsversion().minor == 0:
     winsound.MessageBeep(16)
     print("Error! Windows 2000 is not supported by this program because no NVDown-compatible versions of NVDA can run on Windows 2000!")
     sys.exit()
